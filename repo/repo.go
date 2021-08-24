@@ -43,3 +43,11 @@ func QueryByEmail(email string) (user *pmodel.User, err error) {
 	}
 	return nil, errors.New("User not found")
 }
+
+func ListUsers() ([]string) {
+	var list []string
+	for _, obj := range users {
+		list = append(list, obj.User)
+	}
+	return list
+}

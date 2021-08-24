@@ -31,33 +31,12 @@
   <p id="result"></p>
   {{ end }}
 
-
-  <h2>Blog</h2>
-  <ul>
-    <li><a href="/blog">Anonymous can read</a></li>
-    <li><a href="/blog/all">Login user any role</a></li>
-    <li><a href="/blog/create">Cấm Maintainer and Sysop</a></li>
-    <li><a href="/blog/10">Author and Editor</a></li>
-    <li><a href="/blog/delete/10">Admin, Author and Editor</a></li>
-    <li><a href="/blog/any">Sysop</a></li>
-  </ul>
-  <h2>Student</h2>
-  <ul>
-    <li><a href="/student/submithomework">Only student can submit homework</a></li>
-  </ul>
-  <h2>Trainer</h2>
-  <ul>
-    <li><a href="/trainer/createlesson">Only trainer can create lesson</a></li>
-  </ul>
-  <h2>System Operator</h2>
-  <ul>
-    <li><a href="/sysop/backupdb">Backup DB: Sysop</a></li>
-    <li><a href="/sysop/upload">Upload photo: Maintainer, Sysop</a></li>
-  </ul>
-  <h2>Sales</h2>
-  <ul>
-    <li><a href="/sale/runads">Run Facebook Ads</a></li>
-  </ul>
+  <h2>Danh sách thành viên</h2>
+  <ol>
+    {{range .list}}
+    <li>{{.}}</li>
+    {{end}}
+  </ol>
 
   <script>
     function login() {
