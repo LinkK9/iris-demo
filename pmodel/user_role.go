@@ -10,9 +10,12 @@ type Roles map[int]interface{}
 
 //Thông tin tài khoản
 type User struct {
+	ID    int
 	User  string
 	Pass  string
 	Email string
+	BirthYear string
+	Job   string
 	Roles Roles
 }
 

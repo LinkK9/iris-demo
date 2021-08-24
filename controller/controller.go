@@ -19,14 +19,20 @@ type LoginRequest struct {
 }
 
 func ShowHomePage(ctx iris.Context) {
+	ctx.ViewData("infolist", repo.GetUserInfoList())
 	if authinfo := session.GetAuthInfoViewData(ctx); authinfo != nil {
 		ctx.ViewData("roles", rbac.RolesNames(authinfo.Roles))
 	}
-
-	ctx.ViewData("list", repo.ListUsers())
 	_ = ctx.View("index")
 }
 
+func ShowLoginForm(ctx iris.Context) {
+	_ = ctx.View("form")
+}
+
+func ShowAddUser(ctx iris.Context){
+	_ = ctx.View("addnew")
+}
 /*
 Login thông qua form. Dành cho ứng dụng web server side renderings
 */

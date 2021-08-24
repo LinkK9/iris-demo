@@ -15,51 +15,99 @@
 </head>
 
 <body>
-  {{ if .authinfo }}
-  <h1>Welcome {{ .authinfo.User }}</h1>
-  <ul>
-    {{range .roles}}
-      <li>{{.}}</li>
-    {{end}}
-  </ul>
-  <a href="javascript:logout()">Logout</a>
-  {{ else }}
-  <h1>Login using JSON</h1>
-  User : <input type="text" id="Email"> <br>
-  Pass : <input type="text" id="Pass"> <br><br>
-  <button onclick="login();">Login</button>
-  <p id="result"></p>
-  {{ end }}
+  <header class="flex-bet">
+    <h1>Quản lý nhân sự 0.4</h1>
+    <div>
+      {{ if .authinfo }}
+      <span>Welcome {{ .authinfo.User }}</span>
+      <a href="javascript:logout()">Logout</a>
+      {{ else }}
+      <span>Bạn chưa đăng nhập?</span>
+      <a href="/logform">Login</a>
+      {{ end }}
+    </div>
+  </header>
 
-  <h2>Danh sách thành viên</h2>
-  <ol>
-    {{range .list}}
-    <li>{{.}}</li>
-    {{end}}
-  </ol>
+
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Họ tên
+        </th>
+        <th>Năm sinh</th>
+        <th>Email</th>
+        <th>Nghề nghiệp</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{ if .authinfo }}
+      {{range .infolist}}
+      <tr>
+        <td>{{.User}}</td>
+        <td>{{.BirthYear}}</td>
+        <td>{{.Email}}</td>
+        <td>{{.Job}}</td>
+        <td>
+          <a href="/modify/{{ .ID }}">Chỉnh sửa</a>
+          <a href="/delete/{{ .ID }}" style="cursor: pointer;">Xóa</a>
+        </td>
+      </tr>
+      {{end}}
+      <tr>
+        <td>
+          <a href="/addnew">
+            <h4>Thêm người</h4>
+          </a>
+        </td>
+      </tr>
+      {{ else }}
+      {{range .infolist}}
+      <tr>
+        <td>{{.User}}</td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td></td>
+      </tr>
+      {{end}}
+      {{ end }}
+    </tbody>
+  </table>
+
 
   <script>
-    function login() {
-      axios.defaults.withCredentials = true;
-      axios.post('http://auth.iris.com/loginjson', {
-        Email: $("#Email").val(),
-        Pass: $("#Pass").val()
-      }).then(response => {
-        location.reload();
-      }).catch(response => {
-        $("#result").html(response.data).css('color', 'red');
-      });
-    }
     function logout() {
       axios.defaults.withCredentials = true;
-      axios.get('http://auth.iris.com/logoutjson').then(response => {
+      axios.get('/logoutjson').then(response => {
         location.reload();
       }).catch(response => {
         $("#result").html(response.data).css('color', 'red');
       });
-
     }
   </script>
+  <style>
+    body {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    .flex-bet {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
 </body>
 
 </html>

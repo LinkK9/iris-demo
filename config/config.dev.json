@@ -1,6 +1,6 @@
 {
     "host": "http://localhost:9001",
-    "port": ":8080",
+    "port": ":8088",
     "database": {
         "user": "postgres",
         "password": "123",
