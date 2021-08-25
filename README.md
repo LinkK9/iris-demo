@@ -20,6 +20,8 @@ Màn hình trang chủ khi đã đăng nhập: \
 Ứng dụng có tính năng phân quyền sử dụng. Ở đây đang đăng nhập tài khoản bob, tk này có role là `STUDENT`, role này chỉ có quyền được xem danh sách nhân sự chi tiết mà không thể can thiệp vào thêm, sửa hay xóa nhân sự trong list. Nếu không thực hiện đúng role của mình thì khi chạy tác vụ sẽ báo lỗi:
 
 ![Screenshot](./images/error.png) \
+Tài khoản `linh` có full quyền thêm sửa xóa nhân sự, cập nhật avatar (nhấn vào avatar chọn ảnh rồi nhấn cập nhật).
+
 Ứng dụng này có các role sau đây:
 
 1. User không đăng nhập chỉ được xem danh sách tên, tìm kiếm theo tên
