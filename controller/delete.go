@@ -13,9 +13,10 @@ import (
 
 func DeleteUser(ctx iris.Context){
 	id, _ := ctx.Params().GetInt("id")
-	userData, err := repo.QueryById(id)
+	_, err := repo.QueryById(id)
 	if err != nil {
 		logger.Log(ctx, eris.Warning("User not found").NotFound())
 	}
-_, _ = ctx.Writef("Đã xóa user: %s", userData.User)
+	repo.DeleteUser(id)
+	ctx.Redirect("/")
 }

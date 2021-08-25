@@ -9,4 +9,9 @@ require (
 	github.com/kataras/iris/v12 v12.2.0-alpha2.0.20210717090056-b2cc3a287149
 	github.com/klauspost/compress v1.13.4 // indirect
 	github.com/mitchellh/mapstructure v1.4.1
+	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/stretchr/testify v1.7.0 // indirect
+	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
+	golang.org/x/sys v0.0.0-20210823070655-63515b42dcdf // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

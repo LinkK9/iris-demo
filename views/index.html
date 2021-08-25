@@ -46,11 +46,20 @@
       {{ if .authinfo }}
       {{range .infolist}}
       <tr>
-        <td>{{.User}}</td>
+        <td>
+          <label for="{{.ID}}">
+          <img src="uploads/1.png" alt="" srcset="">
+          </label>
+          {{.User}}
+        </td>
         <td>{{.BirthYear}}</td>
         <td>{{.Email}}</td>
         <td>{{.Job}}</td>
         <td>
+          <form action="/modify/upload/{{ .ID }}" method="post" enctype="multipart/form-data">
+            <input type="file" id="{{.ID}}" name="filename" style="display: none">
+            <button type="submit">Cập nhật avt</button>
+          </form>
           <a href="/modify/{{ .ID }}">Chỉnh sửa</a>
           <a href="/delete/{{ .ID }}" style="cursor: pointer;">Xóa</a>
         </td>
@@ -58,7 +67,7 @@
       {{end}}
       <tr>
         <td>
-          <a href="/addnew">
+          <a href="/create">
             <h4>Thêm người</h4>
           </a>
         </td>
@@ -66,7 +75,9 @@
       {{ else }}
       {{range .infolist}}
       <tr>
-        <td>{{.User}}</td>
+        <td>
+          <img src="../uploads/1.png" alt="" srcset="">
+          {{.User}}</td>
         <td>-</td>
         <td>-</td>
         <td>-</td>
@@ -100,6 +111,11 @@
 
     td {
       text-align: center;
+    }
+
+    img {
+      width: 50px;
+      height: 50px;
     }
 
     .flex-bet {

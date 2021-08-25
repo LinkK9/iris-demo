@@ -30,9 +30,6 @@ func ShowLoginForm(ctx iris.Context) {
 	_ = ctx.View("form")
 }
 
-func ShowAddUser(ctx iris.Context){
-	_ = ctx.View("addnew")
-}
 /*
 Login thông qua form. Dành cho ứng dụng web server side renderings
 */

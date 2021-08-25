@@ -16,9 +16,17 @@ func RegisterRoute(app *iris.Application) {
 	rbac.Get(app, "/logout", rbac.AllowAll(), controller.LogoutFromWeb)
 	rbac.Get(app, "/logoutjson", rbac.AllowAll(), controller.LogoutFromREST)
 
+	create := app.Party("/create")
+	{
+		rbac.Get(create, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF) ,controller.ShowAddUser)
+		rbac.Post(create, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF) ,controller.AddUser)
+	}
+
 	modify := app.Party("/modify")
 	{
-		rbac.Get(modify, "/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF) ,controller.ModifyUser)
+		rbac.Get(modify, "/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF) ,controller.GetUserInfo)
+		rbac.Post(modify, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF) ,controller.ModifyUser)
+	  rbac.Post(modify, "/upload/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF), iris.LimitRequestBodySize(300000), controller.UploadPhoto)
 	}
 
 	delete := app.Party("/delete")
@@ -26,9 +34,4 @@ func RegisterRoute(app *iris.Application) {
 		rbac.Get(delete, "/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR) ,controller.DeleteUser)
 	}
 
-	addnew := app.Party("/addnew")
-	{
-		rbac.Get(addnew, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF) ,controller.ShowAddUser)
-	}
-	
 }

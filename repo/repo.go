@@ -1,9 +1,9 @@
 package repo
 
 import (
+	"errors"
 	"iris-demo/pmodel"
 	"iris-demo/rbac"
-	"errors"
 )
 
 var users = []pmodel.User{
@@ -75,4 +75,24 @@ func QueryById(id int) (user *pmodel.User, err error) {
 		}
 	}
 	return nil, errors.New("User not found")
+}
+
+func AddNewUser(user pmodel.User) {
+users= append(users, user)
+}
+
+func ModifyById(user pmodel.User){
+	for i, obj := range users {
+		if obj.ID == user.ID {
+			users[i] = user
+		}
+	}
+}
+
+func DeleteUser(id int) {
+	for i, obj := range users {
+		if obj.ID == id {
+			users = append(users[:i], users[i + 1:]...)
+		}
+	}
 }
