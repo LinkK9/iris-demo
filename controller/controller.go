@@ -2,15 +2,17 @@ package controller
 
 import (
 	"fmt"
-	"iris-demo/pmodel"
-	"iris-demo/rbac"
 	"iris-demo/repo"
+
+	"iris-demo/pmodel"
+
 	"iris-demo/session"
+
 
 	"github.com/TechMaster/eris"
 	"github.com/TechMaster/logger"
-	"github.com/kataras/iris/v12/sessions"
 	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/sessions"
 )
 
 type LoginRequest struct {
@@ -20,9 +22,6 @@ type LoginRequest struct {
 
 func ShowHomePage(ctx iris.Context) {
 	ctx.ViewData("infolist", repo.GetUserInfoList())
-	if authinfo := session.GetAuthInfoViewData(ctx); authinfo != nil {
-		ctx.ViewData("roles", rbac.RolesNames(authinfo.Roles))
-	}
 	_ = ctx.View("index")
 }
 

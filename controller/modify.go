@@ -36,34 +36,23 @@ if err := ctx.ReadJSON(&user); err != nil {
 POST /upload
 Viết hàm upload ảnh vào đây
 */
-// func UploadPhoto(ctx iris.Context) {
-// 	// id, _ := ctx.Params().GetInt("id")
-// 	uploadfiles, _, err := ctx.UploadFormFiles("./uploads")
-// 	if err != nil {
-// 		logger.Log(ctx, eris.NewFrom(err))
-// 	}
-// 	var filenames string
-// 	for _, upload := range uploadfiles {
-// 		filenames =  upload.Filename 
-// 	}
-// 	_, _ = ctx.WriteString(filenames)
-// }
 
 func UploadPhoto(ctx iris.Context) {
 	id, _ := ctx.Params().GetInt("id")
 	// user, _ := repo.QueryById(id)
-	uploadfiles, _, err := ctx.UploadFormFiles("./uploads")
+	uploadfiles, _, err := ctx.UploadFormFiles("./static")
 	if err != nil {
 		logger.Log(ctx, eris.NewFrom(err))
 	}
 	oldname := ""
-	newname := "uploads/" + strconv.Itoa(id) + ".jpg"
+	newname := "static/" + strconv.Itoa(id) + ".jpg"
 	for _, upload := range uploadfiles {
-		oldname = "uploads/" + upload.Filename
+		oldname = "static/" + upload.Filename
 	}
-	_, _ = ctx.WriteString(newname)
+	// _, _ = ctx.WriteString(newname)
 	e := os.Rename(oldname, newname)
 	if e != nil {
 		logger.Log(ctx, eris.NewFrom(err))
 	}
+	ctx.Redirect("/")
 }

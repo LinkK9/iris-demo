@@ -3,7 +3,8 @@ package repo
 import (
 	"errors"
 	"iris-demo/pmodel"
-	"iris-demo/rbac"
+
+	"github.com/TechMaster/core/rbac"
 )
 
 var users = []pmodel.User{
@@ -23,7 +24,7 @@ var users = []pmodel.User{
 		Email: "bob@gmail.com",
 		BirthYear: "1994",
 		Job:   "Công nhân xây dựng",
-		Roles: pmodel.Roles{rbac.GUEST: true},
+		Roles: pmodel.Roles{rbac.STUDENT: true},
 	},
 	{
 		ID: 3,
@@ -32,7 +33,7 @@ var users = []pmodel.User{
 		Email: "long@gmail.com",
 		BirthYear: "1995",
 		Job:   "Nhân viên bán hàng",
-		Roles: pmodel.Roles{rbac.STAFF: true},
+		Roles: pmodel.Roles{rbac.SALE: true},
 	},
 	{
 		ID: 4,

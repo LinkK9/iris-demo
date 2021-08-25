@@ -2,7 +2,8 @@ package router
 
 import (
 	"iris-demo/controller"
-	"iris-demo/rbac"
+
+	"github.com/TechMaster/core/rbac"
 
 	"github.com/kataras/iris/v12"
 )
@@ -18,15 +19,15 @@ func RegisterRoute(app *iris.Application) {
 
 	create := app.Party("/create")
 	{
-		rbac.Get(create, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF) ,controller.ShowAddUser)
-		rbac.Post(create, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF) ,controller.AddUser)
+		rbac.Get(create, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) ,controller.ShowAddUser)
+		rbac.Post(create, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) ,controller.AddUser)
 	}
 
 	modify := app.Party("/modify")
 	{
-		rbac.Get(modify, "/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF) ,controller.GetUserInfo)
-		rbac.Post(modify, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF) ,controller.ModifyUser)
-	  rbac.Post(modify, "/upload/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.STAFF), iris.LimitRequestBodySize(300000), controller.UploadPhoto)
+		rbac.Get(modify, "/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) ,controller.GetUserInfo)
+		rbac.Post(modify, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) ,controller.ModifyUser)
+	  rbac.Post(modify, "/upload/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE), iris.LimitRequestBodySize(300000), controller.UploadPhoto)
 	}
 
 	delete := app.Party("/delete")

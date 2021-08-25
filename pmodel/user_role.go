@@ -13,7 +13,7 @@ type User struct {
 	ID    int
 	User  string
 	Pass  string
-	Email string
+	Email string    
 	BirthYear string
 	Job   string
 	Roles Roles

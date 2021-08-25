@@ -1,6 +1,6 @@
 {
-    "host": "http://localhost:9001",
-    "port": ":9001",
+    "host": "http://localhost:8088",
+    "port": ":8088",
     "database": {
         "user": "postgres",
         "password": "123",
@@ -16,6 +16,9 @@
         "max_active": 0,
         "idle_timeout": 5,
         "prefix": ""
+    },
+    "authservice": {
+        "host": "http://auth:3000"
     },
     "authenticate": {
         "max_access_failed": 5,
