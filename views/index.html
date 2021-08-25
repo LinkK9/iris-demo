@@ -46,20 +46,24 @@
       {{ if .authinfo }}
       {{range .infolist}}
       <tr>
-        <td>
-          <label for="{{.ID}}">
-          <img src="{{.ID}}.jpg" alt="" srcset="">
-          </label>
-          {{.User}}
+        <td class="flex-cen">
+          <div>
+            <label for="{{.ID}}">
+              <img src="{{.ID}}.jpg" alt="" srcset="">
+            </label>
+            <form action="/modify/upload/{{ .ID }}" method="post" enctype="multipart/form-data">
+              <input type="file" id="{{.ID}}" name="filename" style="display: none">
+              <button type="submit">Cập nhật avt</button>
+            </form>
+          </div>
+          <div>
+            {{.User}}
+          </div>
         </td>
         <td>{{.BirthYear}}</td>
         <td>{{.Email}}</td>
         <td>{{.Job}}</td>
         <td>
-          <form action="/modify/upload/{{ .ID }}" method="post" enctype="multipart/form-data">
-            <input type="file" id="{{.ID}}" name="filename" style="display: none">
-            <button type="submit">Cập nhật avt</button>
-          </form>
           <a href="/modify/{{ .ID }}">Chỉnh sửa</a>
           <a href="/delete/{{ .ID }}" style="cursor: pointer;">Xóa</a>
         </td>
@@ -77,7 +81,8 @@
       <tr>
         <td>
           <img src="{{.ID}}.jpg" alt="" srcset="">
-          {{.User}}</td>
+          {{.User}}
+        </td>
         <td>-</td>
         <td>-</td>
         <td>-</td>
@@ -121,6 +126,11 @@
     .flex-bet {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+    }
+    .flex-cen{
+      display: flex;
+      justify-content: center;
       align-items: center;
     }
   </style>
