@@ -14,7 +14,7 @@ type MyUser struct {
 	User      string
 	Pass      string
 	Email     string
-	BirthYear string
+	BirthDay string
 	Job       string
 	Avatar    string
 	Roles     pmodel.Roles
@@ -34,7 +34,7 @@ var users = []MyUser{
 		User:      "root",
 		Pass:      "1",
 		Email:     "root@gmail.com",
-		BirthYear: "1975-08-11",
+		BirthDay: "1975-08-11",
 		Job:       "Developer",
 		Roles:     pmodel.Roles{rbac.ROOT: true},
 	},
@@ -43,7 +43,7 @@ var users = []MyUser{
 		User:      "bob",
 		Pass:      "1",
 		Email:     "bob@gmail.com",
-		BirthYear: "1994-05-25",
+		BirthDay: "1994-05-25",
 		Job:       "Công nhân xây dựng",
 		Roles:     pmodel.Roles{rbac.STUDENT: true},
 	},
@@ -52,7 +52,7 @@ var users = []MyUser{
 		User:      "long",
 		Pass:      "1",
 		Email:     "long@gmail.com",
-		BirthYear: "1995-02-27",
+		BirthDay: "1995-02-27",
 		Job:       "Nhân viên bán hàng",
 		Roles:     pmodel.Roles{rbac.SALE: true},
 	},
@@ -61,7 +61,7 @@ var users = []MyUser{
 		User:      "linh",
 		Pass:      "1",
 		Email:     "linh@gmail.com",
-		BirthYear: "1992-10-26",
+		BirthDay: "1992-10-26",
 		Job:       "Xe ôm",
 		Roles:     pmodel.Roles{rbac.EDITOR: true},
 	},
@@ -106,10 +106,10 @@ func AddNewUser(user MyUser) {
 	users = append(users, newUser)
 }
 
-func ModifyById(user MyUser) {
+func ModifyUser(user MyUser) {
 	for i, obj := range users {
 		if obj.ID == user.ID {
-			users[i].BirthYear = user.BirthYear
+			users[i].BirthDay = user.BirthDay
 			users[i].User  = user.User
 			users[i].Email = user.Email
 			users[i].Job = user.Job
