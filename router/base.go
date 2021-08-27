@@ -20,19 +20,18 @@ func RegisterRoute(app *iris.Application) {
 	create := app.Party("/create")
 	{
 		rbac.Get(create, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) ,controller.ShowAddUser)
-		rbac.Post(create, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) ,controller.AddUser)
+		rbac.Post(create, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) , controller.AddUser, iris.LimitRequestBodySize(300000), controller.UploadPhoto)
 	}
 
 	modify := app.Party("/modify")
 	{
-		rbac.Get(modify, "/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) ,controller.GetUserInfo)
-		rbac.Post(modify, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) ,controller.ModifyUser)
-	  rbac.Post(modify, "/upload/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE), iris.LimitRequestBodySize(300000), controller.UploadPhoto)
+		rbac.Get(modify, "/{id:string}", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) ,controller.GetUserInfo)
+		rbac.Post(modify, "", rbac.Allow(rbac.ROOT, rbac.EDITOR, rbac.SALE) ,controller.ModifyUser, iris.LimitRequestBodySize(300000), controller.UploadPhoto)
 	}
 
 	delete := app.Party("/delete")
 	{
-		rbac.Get(delete, "/{id:int}", rbac.Allow(rbac.ROOT, rbac.EDITOR) ,controller.DeleteUser)
+		rbac.Get(delete, "/{id:string}", rbac.Allow(rbac.ROOT, rbac.EDITOR) ,controller.DeleteUser)
 	}
 
 }

@@ -15,12 +15,20 @@
 
 <body>
   <h1>Chỉnh sửa</h1>
-  <form>
-    Họ tên: <input type="text" id="User" value="{{.data.User}}"> <br>
-    Email: <input type="text" id="Email" value="{{.data.Email}}"> <br>
-    Năm sinh: <input type="text" id="BirthYear" value="{{.data.BirthYear}}"> <br>
-    Nghề Nghiệp: <input type="text" id="Job" value="{{.data.Job}}"> <br>
-    <button onclick="modifyUser();">Sửa</button>
+  <form action="/modify" method="post" enctype="multipart/form-data">
+    <input style="display: none" type="text" name="ID" value="{{.data.ID}}">
+    Họ tên: <input type="text" id="User" name="User" value="{{.data.User}}" required> <br>
+    Email: <input type="email" id="Email" name="Email" value="{{.data.Email}}" required> <br>
+    <!-- Năm sinh: <input type="text" id="BirthYear" name="BirthYear"value="{{.data.BirthYear}}"> <br> -->
+    Năm sinh: <input type="date" id="BirthYear" name="BirthYear"value="{{.data.BirthYear}}"> <br>
+    Nghề Nghiệp: <select id="Job" name="Job">
+      <option value="{{.data.Job}}">{{.data.Job}}</option>
+      <option value="Dev">Dev</option>
+      <option value="Driver">Driver</option>
+      <option value="Teacher">Teacher</option>
+    </select> <br>
+    Avatar: <input type="file" name="avatar" option>
+    <button type="submit">Sửa</button>
   </form>
 </body>
 <script>

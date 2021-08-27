@@ -1,8 +1,6 @@
 package controller
 
 import (
-	"iris-demo/pmodel"
-
 	"iris-demo/repo"
 
 	"github.com/TechMaster/eris"
@@ -10,17 +8,22 @@ import (
 	"github.com/kataras/iris/v12"
 )
 
-
-
-func ShowAddUser(ctx iris.Context){
+func ShowAddUser(ctx iris.Context) {
 	_ = ctx.View("addnew")
 }
 
 func AddUser(ctx iris.Context) {
-var newUser pmodel.User
-if err := ctx.ReadJSON(&newUser); err != nil {
-	logger.Log(ctx, eris.NewFrom(err).BadRequest())
-	return
-}
-repo.AddNewUser(newUser)
+	var newUser repo.MyUser
+	if err := ctx.ReadForm(&newUser); err != nil && !iris.IsErrPath(err) {
+		logger.Log(ctx, eris.NewFrom(err).BadRequest())
+		return
+	}
+	repo.AddNewUser(newUser)
+	id, e := repo.GetIdByEmail(newUser.Email)
+	if e != nil {
+		logger.Log(ctx, eris.Warning("Id not found").BadRequest())
+	}
+	ctx.Values().Set("id", id)
+	ctx.Next()
+	// ctx.Redirect("/")
 }

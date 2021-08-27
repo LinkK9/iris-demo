@@ -19,7 +19,7 @@
     <h1>Quản lý nhân sự 0.4</h1>
     <div>
       {{ if .authinfo }}
-      <span>Welcome {{ .authinfo.User }}</span>
+      <span>Welcome {{ .authinfo.FullName }}</span>
       <a href="javascript:logout()">Logout</a>
       {{ else }}
       <span>Bạn chưa đăng nhập?</span>
@@ -49,12 +49,8 @@
         <td class="flex-cen">
           <div>
             <label for="{{.ID}}">
-              <img src="{{.ID}}.jpg" alt="" srcset="">
+              <img src="{{.Avatar}}" alt="" srcset="">
             </label>
-            <form action="/modify/upload/{{ .ID }}" method="post" enctype="multipart/form-data">
-              <input type="file" id="{{.ID}}" name="filename" style="display: none">
-              <button type="submit">Cập nhật avt</button>
-            </form>
           </div>
           <div>
             {{.User}}
@@ -80,7 +76,7 @@
       {{range .infolist}}
       <tr>
         <td>
-          <img src="{{.ID}}.jpg" alt="" srcset="">
+          <img src="{{.Avatar}}" alt="" srcset="">
           {{.User}}
         </td>
         <td>-</td>

@@ -4,15 +4,14 @@ import (
 	"fmt"
 	"iris-demo/repo"
 
-	"iris-demo/pmodel"
-
-	"iris-demo/session"
-
+	"github.com/TechMaster/core/pmodel"
+	// "github.com/TechMaster/core/rbac"
+	"github.com/TechMaster/core/session"
 
 	"github.com/TechMaster/eris"
 	"github.com/TechMaster/logger"
 	"github.com/kataras/iris/v12"
-	"github.com/kataras/iris/v12/sessions"
+	// "github.com/kataras/iris/v12/sessions"
 )
 
 type LoginRequest struct {
@@ -22,6 +21,9 @@ type LoginRequest struct {
 
 func ShowHomePage(ctx iris.Context) {
 	ctx.ViewData("infolist", repo.GetUserInfoList())
+	if authinfo := session.GetAuthInfoViewData(ctx); authinfo != nil {
+		ctx.ViewData("authinfo", authinfo)
+	}
 	_ = ctx.View("index")
 }
 
@@ -52,9 +54,10 @@ func Login(ctx iris.Context) {
 	}
 
 	session.SetAuthenticated(ctx, pmodel.AuthenInfo{
-		User:  user.User,
-		Email: user.Email,
-		Roles: user.Roles,
+		Id:       user.ID,
+		FullName: user.User,
+		Email:    user.Email,
+		Roles:    user.Roles,
 	})
 
 	//Login thành công thì quay về trang chủ
@@ -85,18 +88,12 @@ func LoginJSON(ctx iris.Context) {
 	}
 
 	session.SetAuthenticated(ctx, pmodel.AuthenInfo{
-		User:  user.User,
-		Email: user.Email,
-		Roles: user.Roles,
+		Id:       user.ID,
+		FullName: user.User,
+		Email:    user.Email,
+		Roles:    user.Roles,
 	})
 
-	sess := sessions.Get(ctx)
-	sess.Set(session.SESS_AUTH, true)
-	sess.Set(session.SESS_USER, pmodel.AuthenInfo{
-		User:  user.User,
-		Email: user.Email,
-		Roles: user.Roles,
-	})
 	//Login thành công thì quay về trang chủ
 	_, _ = ctx.JSON("Login successfully")
 }
@@ -118,4 +115,3 @@ func logout(ctx iris.Context) {
 	//Xoá toàn bộ session và xoá luôn cả Cookie sessionid ở máy người dùng
 	session.Sess.Destroy(ctx)
 }
-

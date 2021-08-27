@@ -15,25 +15,38 @@
 
 <body>
   <h1>Thêm mới</h1>
-  <form action="">
-    Họ tên: <input type="text" id="User"> <br>
-    Email: <input type="text" id="Email"> <br>
-    Năm sinh: <input type="text" id="BirthYear"> <br>
-    Nghề Nghiệp: <input type="text" id="Job"> <br>
-    <button onclick="createUser();">Thêm mới</button>
+  <form action="/create" method="post" enctype="multipart/form-data">
+    Họ tên: <input type="text" id="User" name="User" required> <br>
+    Email: <input type="email" id="Email" name="Email" required> <br>
+    Năm sinh: <input type="date" id="BirthYear" name="BirthYear"> <br>
+    Nghề Nghiệp: <select id="Job" name="Job">
+      <option value="Dev">Dev</option>
+      <option value="Driver">Driver</option>
+      <option value="Teacher">Teacher</option>
+    </select> <br>
+    Avatar: <input type="file" name="avatar">
+    <button type="submit" >Thêm mới</button>
   </form>
 </body>
 <script>
+  let fd = new FormData();
+  let data = {
+    IMG : getFileUpload(),
+    User: $('#User').val(),
+    Pass: "1",
+    Email: $("#Email").val(),
+    BirthYear: $("#BirthYear").val(),
+    Job: $("#Job").val(),
+  }
+
+  for(let key in data){
+    const value = data[key];
+    fd.append(key, value);
+  }
+
   function createUser() {
     axios.defaults.withCredentials = true;
-    axios.post('/create', {
-      ID: new Date().getTime(),
-      User: $('#User').val(),
-      Pass: "1",
-      Email: $("#Email").val(),
-      BirthYear: $("#BirthYear").val(),
-      Job: $("#Job").val(),
-    },
+    axios.post('/create', fd,
       {
         header: {
           "Content-Type": false,
@@ -44,6 +57,10 @@
     }).catch(response => {
       $("#result").html(response.data).css('color', 'red');
     });
+  }
+
+  function getFileUpload(e) {
+    return e.target.files[0]
   }
 </script>
 

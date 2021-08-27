@@ -1,10 +1,9 @@
 package main
 
 import (
-	"iris-demo/session"
-
 	"github.com/TechMaster/core/config"
 	"github.com/TechMaster/core/rbac"
+	"github.com/TechMaster/core/session"
 	"github.com/TechMaster/core/template"
 	"github.com/spf13/viper"
 
